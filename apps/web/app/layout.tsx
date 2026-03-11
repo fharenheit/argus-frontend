@@ -1,12 +1,16 @@
-import { Geist, Geist_Mono, Roboto } from "next/font/google"
+import { Roboto, Roboto_Mono } from "next/font/google"
 
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@workspace/ui/lib/utils";
+import { cn } from "@workspace/ui/lib/utils"
 
-const roboto = Roboto({subsets:['latin'],variable:'--font-sans'})
+const roboto = Roboto({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"],
+  variable: "--font-sans",
+})
 
-const fontMono = Geist_Mono({
+const robotoMono = Roboto_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
 })
@@ -18,11 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="ko"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", roboto.variable)}
+      className={cn("antialiased", roboto.variable, robotoMono.variable)}
     >
-      <body>
+      <body className="font-sans">
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>

@@ -7,6 +7,7 @@ import { Button } from "@workspace/ui/components/button"
 import { Input } from "@workspace/ui/components/input"
 import { Separator } from "@workspace/ui/components/separator"
 import { SidebarTrigger } from "@workspace/ui/components/sidebar"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 interface DashboardHeaderProps {
   title: string
@@ -41,6 +42,7 @@ export function DashboardHeader({ title, description }: DashboardHeaderProps) {
             3
           </Badge>
         </Button>
+        <ThemeToggle />
       </div>
     </header>
   )
