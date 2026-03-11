@@ -147,7 +147,8 @@ export function UsersTable({ data }: UsersTableProps) {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
-                  className="group/row"
+                  className="group/row cursor-pointer"
+                  onClick={() => row.toggleSelected()}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell

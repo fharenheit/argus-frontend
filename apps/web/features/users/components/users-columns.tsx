@@ -29,12 +29,14 @@ export const usersColumns: ColumnDef<User>[] = [
       className: cn("max-md:sticky start-0 z-10 rounded-tl-[inherit]"),
     },
     cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
+      <div onClick={(e) => e.stopPropagation()}>
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+          className="translate-y-[2px]"
+        />
+      </div>
     ),
     enableSorting: false,
     enableHiding: false,
