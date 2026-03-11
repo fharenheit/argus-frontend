@@ -1,6 +1,28 @@
-# shadcn/ui monorepo template
+# Argus Frontend
 
-This is a Next.js monorepo template with shadcn/ui.
+
+## Build & Run
+
+
+### Install `pnpm`
+
+Node 16 버전 이상인 경우 다음의 커맨드를 실행합니다.
+
+```bash
+corepack enable
+```
+
+### Install Package
+
+```bash
+pnpm install
+```
+
+### Run
+
+```bash
+pnpm run dev --host 10.0.1.50
+```
 
 ## Adding components
 
