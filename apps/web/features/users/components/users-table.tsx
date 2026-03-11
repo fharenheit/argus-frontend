@@ -94,7 +94,6 @@ export function UsersTable({ data }: UsersTableProps) {
             options: [
               { label: "Active", value: "active" },
               { label: "Inactive", value: "inactive" },
-              { label: "Suspended", value: "suspended" },
             ],
           },
           {
