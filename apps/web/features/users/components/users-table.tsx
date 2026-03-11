@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   type ColumnFiltersState,
   type PaginationState,
@@ -33,16 +33,25 @@ import {
 import { roles } from "../data/data"
 import { type User } from "../data/schema"
 import { usersColumns as columns } from "./users-columns"
+import { useUsers } from "./users-provider"
 
 type UsersTableProps = {
   data: User[]
 }
 
 export function UsersTable({ data }: UsersTableProps) {
+  const { statusFilter } = useUsers()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
+
+  useEffect(() => {
+    setColumnFilters((prev) => {
+      const without = prev.filter((f) => f.id !== "status")
+      return statusFilter ? [...without, { id: "status", value: statusFilter }] : without
+    })
+  }, [statusFilter])
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -85,7 +94,6 @@ export function UsersTable({ data }: UsersTableProps) {
             options: [
               { label: "Active", value: "active" },
               { label: "Inactive", value: "inactive" },
-              { label: "Invited", value: "invited" },
               { label: "Suspended", value: "suspended" },
             ],
           },
