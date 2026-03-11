@@ -14,9 +14,10 @@ import {
 import { AppSidebarNav } from "@/components/app-sidebar-nav"
 import { AppSidebarUser } from "@/components/app-sidebar-user"
 import { getMenu } from "@/lib/menu"
+import { getSession } from "@/lib/session"
 
 export async function AppSidebar() {
-  const menu = await getMenu()
+  const [menu, session] = await Promise.all([getMenu(), getSession()])
 
   return (
     <Sidebar collapsible="icon">
@@ -43,7 +44,7 @@ export async function AppSidebar() {
       </SidebarContent>
 
       <SidebarFooter>
-        <AppSidebarUser />
+        <AppSidebarUser user={session.user} />
       </SidebarFooter>
 
       <SidebarRail />

@@ -19,17 +19,13 @@ import {
 } from "@workspace/ui/components/dropdown-menu"
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@workspace/ui/components/sidebar"
 import { Separator } from "@workspace/ui/components/separator"
+import type { SessionUser } from "@/lib/session"
 
-// 향후 /api/user 또는 세션에서 가져올 사용자 정보
-const user = {
-  name: "관리자",
-  username: "admin",
-  email: "admin@argus.io",
-  phone: "010-1234-5678",
-  avatarUrl: "/avatars/admin.png",
+interface AppSidebarUserProps {
+  user: SessionUser
 }
 
-export function AppSidebarUser() {
+export function AppSidebarUser({ user }: AppSidebarUserProps) {
   const [profileOpen, setProfileOpen] = useState(false)
 
   return (
