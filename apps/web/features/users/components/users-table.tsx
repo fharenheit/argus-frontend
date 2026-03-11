@@ -40,7 +40,7 @@ type UsersTableProps = {
 }
 
 export function UsersTable({ data }: UsersTableProps) {
-  const { statusFilter } = useUsers()
+  const { statusFilter, setSelectedUsers } = useUsers()
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
@@ -80,6 +80,11 @@ export function UsersTable({ data }: UsersTableProps) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
+
+  // rowSelection이 변경될 때마다 선택된 사용자 목록을 context에 동기화
+  useEffect(() => {
+    setSelectedUsers(table.getSelectedRowModel().rows.map((row) => row.original))
+  }, [rowSelection])
 
   return (
     <div className={cn("flex flex-1 flex-col gap-4")}>
