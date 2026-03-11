@@ -29,9 +29,9 @@ export async function AppSidebar() {
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Shield className="size-4" />
                 </div>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">Argus</span>
-                  <span className="truncate text-xs text-muted-foreground">모니터링 플랫폼</span>
+                <div className="grid flex-1 text-left leading-tight">
+                  <span className="truncate text-base font-bold">Argus</span>
+                  <span className="truncate text-xs text-muted-foreground">Data + AI Platform</span>
                 </div>
               </Link>
             </SidebarMenuButton>
