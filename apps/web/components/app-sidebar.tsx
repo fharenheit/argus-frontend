@@ -1,21 +1,11 @@
-"use client"
-
 import {
-  BarChart3,
-  Bell,
   ChevronUp,
-  LayoutDashboard,
   LogOut,
-  Monitor,
-  Server,
   Settings,
   Shield,
   User2,
-  Users,
-  Zap,
 } from "lucide-react"
 import Link from "next/link"
-import { usePathname } from "next/navigation"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@workspace/ui/components/avatar"
 import {
@@ -29,72 +19,17 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarGroup,
-  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
 } from "@workspace/ui/components/sidebar"
-import { cn } from "@workspace/ui/lib/utils"
+import { AppSidebarNav } from "@/components/app-sidebar-nav"
+import { getMenu } from "@/lib/menu"
 
-const navMain = [
-  {
-    title: "대시보드",
-    url: "/dashboard",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "모니터링",
-    url: "/dashboard/monitoring",
-    icon: Monitor,
-  },
-  {
-    title: "서버 현황",
-    url: "/dashboard/servers",
-    icon: Server,
-  },
-  {
-    title: "알림",
-    url: "/dashboard/alerts",
-    icon: Bell,
-  },
-]
-
-const navAnalysis = [
-  {
-    title: "성능 분석",
-    url: "/dashboard/performance",
-    icon: BarChart3,
-  },
-  {
-    title: "보안",
-    url: "/dashboard/security",
-    icon: Shield,
-  },
-  {
-    title: "이벤트 로그",
-    url: "/dashboard/events",
-    icon: Zap,
-  },
-]
-
-const navAdmin = [
-  {
-    title: "사용자 관리",
-    url: "/dashboard/users",
-    icon: Users,
-  },
-  {
-    title: "설정",
-    url: "/dashboard/settings",
-    icon: Settings,
-  },
-]
-
-export function AppSidebar() {
-  const pathname = usePathname()
+export async function AppSidebar() {
+  const menu = await getMenu()
 
   return (
     <Sidebar collapsible="icon">
@@ -117,65 +52,7 @@ export function AppSidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>메인</SidebarGroupLabel>
-          <SidebarMenu>
-            {navMain.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.url}
-                  tooltip={item.title}
-                >
-                  <Link href={item.url}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>분석</SidebarGroupLabel>
-          <SidebarMenu>
-            {navAnalysis.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.url}
-                  tooltip={item.title}
-                >
-                  <Link href={item.url}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel>관리</SidebarGroupLabel>
-          <SidebarMenu>
-            {navAdmin.map((item) => (
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.url}
-                  tooltip={item.title}
-                >
-                  <Link href={item.url}>
-                    <item.icon />
-                    <span>{item.title}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        </SidebarGroup>
+        <AppSidebarNav groups={menu.groups} />
       </SidebarContent>
 
       <SidebarFooter>
