@@ -144,7 +144,7 @@ export function UsersActionDialog({
             Click save when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <div className="max-h-[420px] overflow-y-auto py-1 pr-1">
+        <div className="py-1">
           <Form {...form}>
             <form
               id="user-form"
