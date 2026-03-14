@@ -1,11 +1,17 @@
 "use client"
 
-import { useState } from "react"
-import { Search, Save } from "lucide-react"
+import { useRef, useState } from "react"
+import { Save, Search } from "lucide-react"
 import { Button } from "@workspace/ui/components/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@workspace/ui/components/dialog"
 import { Input } from "@workspace/ui/components/input"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@workspace/ui/components/tabs"
-import { ConfigField, type ConfigItem } from "./config-field"
+import { ConfigField, type ConfigFieldHandle, type ConfigItem } from "./config-field"
 import configData from "@/data/service-configuration.json"
 
 type ConfigData = Record<string, ConfigItem[]>
@@ -16,6 +22,33 @@ export function ServiceConfiguration() {
   const [search, setSearch] = useState("")
   const services = Object.keys(data)
   const [activeService, setActiveService] = useState(services[0] ?? "")
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const [jsonResult, setJsonResult] = useState("")
+
+  const fieldRefs = useRef<Map<string, ConfigFieldHandle>>(new Map())
+
+  const setRef = (key: string) => (handle: ConfigFieldHandle | null) => {
+    if (handle) {
+      fieldRefs.current.set(key, handle)
+    } else {
+      fieldRefs.current.delete(key)
+    }
+  }
+
+  const handleSave = () => {
+    const result: Record<string, Record<string, unknown>> = {}
+    for (const [service, items] of Object.entries(data)) {
+      result[service] = {}
+      for (const item of items) {
+        const handle = fieldRefs.current.get(item.key)
+        if (handle) {
+          result[service][item.key] = handle.getValue()
+        }
+      }
+    }
+    setJsonResult(JSON.stringify(result, null, 2))
+    setDialogOpen(true)
+  }
 
   const filteredItems = (items: ConfigItem[]) => {
     if (!search.trim()) return items
@@ -41,7 +74,7 @@ export function ServiceConfiguration() {
             className="pl-8 h-8 text-sm"
           />
         </div>
-        <Button size="sm" className="gap-1.5">
+        <Button size="sm" className="gap-1.5" onClick={handleSave}>
           <Save className="h-3.5 w-3.5" />
           변경사항 저장
         </Button>
@@ -66,9 +99,9 @@ export function ServiceConfiguration() {
                   검색 결과가 없습니다.
                 </p>
               ) : (
-                <div className="rounded-lg border bg-card divide-y divide-border">
+                <div className="rounded-lg bg-card">
                   {items.map((item) => (
-                    <ConfigField key={item.key} item={item} />
+                    <ConfigField key={item.key} ref={setRef(item.key)} item={item} />
                   ))}
                 </div>
               )}
@@ -76,6 +109,18 @@ export function ServiceConfiguration() {
           )
         })}
       </Tabs>
+
+      {/* JSON result dialog */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] flex flex-col">
+          <DialogHeader>
+            <DialogTitle>변경사항 저장</DialogTitle>
+          </DialogHeader>
+          <pre className="flex-1 overflow-auto rounded-md bg-muted p-4 text-xs font-mono leading-relaxed">
+            {jsonResult}
+          </pre>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
