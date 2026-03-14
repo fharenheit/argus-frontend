@@ -61,16 +61,16 @@ export function CodeEditor({ value, onChange, className, minLines = 6 }: CodeEdi
   return (
     <div
       className={cn(
-        "relative flex rounded-md border text-sm font-mono overflow-hidden transition-colors",
+        "relative flex rounded-md border font-mono overflow-hidden transition-colors",
+        "bg-background text-foreground",
         focused ? "border-ring ring-ring/50 ring-[3px]" : "border-input",
-        "bg-[#1e1e1e] text-[#d4d4d4]",
         className
       )}
     >
       {/* line numbers */}
       <div
         ref={scrollRef}
-        className="select-none overflow-hidden shrink-0 py-2 text-right pr-3 pl-3 text-[#858585] bg-[#1e1e1e] border-r border-[#333]"
+        className="select-none overflow-hidden shrink-0 py-2 text-right pr-3 pl-3 text-muted-foreground bg-muted border-r border-border"
         style={{ minWidth: `${String(lineCount).length * 0.6 + 1.8}rem` }}
         aria-hidden
       >
@@ -91,10 +91,7 @@ export function CodeEditor({ value, onChange, className, minLines = 6 }: CodeEdi
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         spellCheck={false}
-        className={cn(
-          "flex-1 resize-none bg-transparent outline-none py-2 px-3 leading-6 text-xs",
-          "caret-white"
-        )}
+        className="flex-1 resize-none bg-transparent outline-none py-2 px-3 leading-6 text-xs caret-foreground text-foreground"
         style={{ minHeight: `${lineCount * 1.5 + 1}rem` }}
       />
     </div>
