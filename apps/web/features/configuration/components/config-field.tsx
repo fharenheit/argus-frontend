@@ -213,17 +213,15 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
               </div>
             ))}
             {item.appendable && (
-              <div className="flex justify-end">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5 text-xs h-7"
-                  onClick={addInputValue}
-                >
-                  <Plus className="h-3 w-3" />
-                  항목 추가
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-1.5 text-xs h-7 w-fit"
+                onClick={addInputValue}
+              >
+                <Plus className="h-3 w-3" />
+                항목 추가
+              </Button>
             )}
           </div>
         )}
@@ -316,17 +314,15 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
               </div>
             ))}
             {item.appendable && (
-              <div className="flex justify-end">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="gap-1.5 text-xs h-7"
-                  onClick={addKvRow}
-                >
-                  <Plus className="h-3 w-3" />
-                  항목 추가
-                </Button>
-              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="gap-1.5 text-xs h-7 w-fit"
+                onClick={addKvRow}
+              >
+                <Plus className="h-3 w-3" />
+                항목 추가
+              </Button>
             )}
           </div>
         )}
