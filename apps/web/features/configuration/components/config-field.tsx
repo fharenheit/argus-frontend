@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@workspace/ui/components/select"
 import { Textarea } from "@workspace/ui/components/textarea"
-import { cn } from "@/lib/utils"
+import { cn } from "@workspace/ui/lib/utils"
 
 export interface ConfigItem {
   name: string
