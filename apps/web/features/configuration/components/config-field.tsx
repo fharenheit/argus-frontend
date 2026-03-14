@@ -193,7 +193,11 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
                   <Input
                     value={val}
                     onChange={(e) => updateInputValue(idx, e.target.value)}
-                    className={cn("h-8 text-sm", inputErrors[idx] && "border-destructive")}
+                    className={cn(
+                      "h-8 text-sm",
+                      ["Integer", "Double", "Float"].includes(item.dataType ?? "") && "w-[20ch]",
+                      inputErrors[idx] && "border-destructive"
+                    )}
                     placeholder={item.default !== undefined ? String(item.default) : ""}
                   />
                   {item.appendable && inputValues.length > 1 && (
@@ -236,7 +240,7 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
                   setTextValue(e.target.value)
                   setTextError(validateNumeric(e.target.value, item.dataType))
                 }}
-                className={cn("h-8 text-sm w-40", textError && "border-destructive")}
+                className={cn("h-8 text-sm w-[20ch]", textError && "border-destructive")}
                 placeholder="0"
               />
               {item.unit && item.unit.length > 0 && (
