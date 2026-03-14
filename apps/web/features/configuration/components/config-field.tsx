@@ -298,7 +298,6 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
                       value={row[field]}
                       onChange={(e) => updateKvRow(idx, field, e.target.value)}
                       className="h-8 text-sm"
-                      placeholder={field === "key" ? "name" : field}
                     />
                   </div>
                 ))}
