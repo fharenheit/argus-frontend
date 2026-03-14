@@ -288,36 +288,22 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
         {item.type === "key-value-description" && (
           <div className="flex flex-col gap-3">
             {kvRows.map((row, idx) => (
-              <div key={idx} className="flex flex-col gap-2 rounded-md border bg-muted/30 p-3">
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground font-medium">Name</span>
-                  <Input
-                    value={row.key}
-                    onChange={(e) => updateKvRow(idx, "key", e.target.value)}
-                    className="h-8 text-sm"
-                    placeholder="name"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground font-medium">Value</span>
-                  <Input
-                    value={row.value}
-                    onChange={(e) => updateKvRow(idx, "value", e.target.value)}
-                    className="h-8 text-sm"
-                    placeholder="value"
-                  />
-                </div>
-                <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground font-medium">Description</span>
-                  <Input
-                    value={row.description}
-                    onChange={(e) => updateKvRow(idx, "description", e.target.value)}
-                    className="h-8 text-sm"
-                    placeholder="description"
-                  />
-                </div>
+              <div key={idx} className="flex flex-col gap-1.5 rounded-md border bg-muted/30 p-3">
+                {(["key", "value", "description"] as const).map((field) => (
+                  <div key={field} className="grid grid-cols-[6rem_1fr] items-center gap-2">
+                    <span className="text-xs text-muted-foreground font-medium capitalize text-right">
+                      {field === "key" ? "Name" : field.charAt(0).toUpperCase() + field.slice(1)}
+                    </span>
+                    <Input
+                      value={row[field]}
+                      onChange={(e) => updateKvRow(idx, field, e.target.value)}
+                      className="h-8 text-sm"
+                      placeholder={field === "key" ? "name" : field}
+                    />
+                  </div>
+                ))}
                 {item.appendable && kvRows.length > 1 && (
-                  <div className="flex justify-end">
+                  <div className="flex justify-end pt-1">
                     <Button
                       variant="ghost"
                       size="icon"
