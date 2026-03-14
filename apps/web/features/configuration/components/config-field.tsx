@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/components/select"
-import { Textarea } from "@workspace/ui/components/textarea"
+import { CodeEditor } from "./code-editor"
 import {
   Tooltip,
   TooltipContent,
@@ -273,13 +273,9 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
           </RadioGroup>
         )}
 
-        {/* textarea */}
+        {/* textarea → code editor */}
         {item.type === "textarea" && (
-          <Textarea
-            value={textareaValue}
-            onChange={(e) => setTextareaValue(e.target.value)}
-            className="text-sm font-mono min-h-[100px] resize-y"
-          />
+          <CodeEditor value={textareaValue} onChange={setTextareaValue} />
         )}
 
         {/* key-value-description: vertical per row */}
