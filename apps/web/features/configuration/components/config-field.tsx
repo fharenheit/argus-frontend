@@ -150,7 +150,7 @@ export const ConfigField = forwardRef<ConfigFieldHandle, ConfigFieldProps>(({ it
   }
 
   return (
-    <div className="grid grid-cols-[1fr_2fr_auto] gap-x-6 gap-y-1 py-4">
+    <div className="grid grid-cols-[30ch_2fr_auto] gap-x-6 gap-y-1 py-4">
       {/* Col 1: name + key */}
       <div className="flex flex-col gap-1 pr-2">
         <span
